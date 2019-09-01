@@ -1,21 +1,15 @@
 package info.mastera;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/RestApp")
 public class RestApp extends HttpServlet {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        try {
-            response.getWriter().println(getGreeting());
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+        response.getWriter().println("No Web.xml example");
     }
 }
