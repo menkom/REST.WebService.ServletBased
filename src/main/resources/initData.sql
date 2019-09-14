@@ -1,0 +1,1 @@
+insert into `user` (`id`, `name`, `telephone`)VALUES (1, 'user1', 'tel1'),(2, 'spammer', 'no_tel'),(3, '3user3', '33'),(4, 'customer', '4tel');
