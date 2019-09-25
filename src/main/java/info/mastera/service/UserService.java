@@ -45,4 +45,9 @@ public class UserService implements IUserService {
     public Long count() {
         return userDao.count();
     }
+
+    @Override
+    public User getByUsername(String userName) {
+        return userDao.getByUsername(userName);
+    }
 }

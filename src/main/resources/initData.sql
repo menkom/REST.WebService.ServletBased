@@ -1,1 +1,1 @@
-insert into `user` (`id`, `name`, `telephone`)VALUES (1, 'user1', 'tel1'),(2, 'spammer', 'no_tel'),(3, '3user3', '33'),(4, 'customer', '4tel');
+insert into `user` (`id`, `name`, `password`,`telephone`, `user_type`)VALUES(1,'user1','engineer','tel1','ENGINEER'),(2, 'spammer', '','no_tel','CUSTOMER'),(3, 'receiver', 'r','33','RECEIVER'),(4, 'admin','m', '4tel','ADMIN');
