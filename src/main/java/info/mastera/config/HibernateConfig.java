@@ -2,6 +2,8 @@ package info.mastera.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -16,6 +18,8 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:hibernate.properties")
+@ComponentScans(value = {@ComponentScan("info.mastera.service"), @ComponentScan("info.mastera.api"),
+        @ComponentScan("info.mastera.dao")})
 public class HibernateConfig {
 
     @Autowired
@@ -24,7 +28,7 @@ public class HibernateConfig {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setPackagesToScan("info.mastera");
+        factoryBean.setPackagesToScan("info.mastera.model");
         factoryBean.setDataSource(dataSource());
         factoryBean.setHibernateProperties(hibernateProperties());
         return factoryBean;

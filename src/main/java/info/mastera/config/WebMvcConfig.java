@@ -7,6 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"info.mastera"})
+@ComponentScan(basePackages = {"info.mastera.controller"})
 public class WebMvcConfig implements WebMvcConfigurer {
 }

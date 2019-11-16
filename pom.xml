@@ -20,9 +20,17 @@
         <h2database.version>1.4.197</h2database.version>
         <javax.servlet.version>4.0.1</javax.servlet.version>
         <hibernate.version>5.4.4.Final</hibernate.version>
+        <spring-security>5.1.6.RELEASE</spring-security>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -70,13 +78,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>${spring-security}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>${spring-security}</version>
         </dependency>
     </dependencies>
 
