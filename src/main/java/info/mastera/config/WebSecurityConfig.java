@@ -3,6 +3,7 @@ package info.mastera.config;
 import info.mastera.authorization.RestAuthenticationEntryPoint;
 import info.mastera.authorization.SavedRequestAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
@@ -29,6 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SavedRequestAuthenticationSuccessHandler mySuccessHandler;
 
+    @Autowired
+    @Qualifier("userDetailsService")
+    private UserDetailsService userDetailsService;
+
     private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
 
     /**
@@ -40,14 +46,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * In-memory realisation of users
+     * Authorization configuration
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("adm")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("u")).roles("USER");
+        auth.userDetailsService(userDetailsService)
+                // encoder is required
+                .passwordEncoder(encoder());
     }
 
     /**
@@ -67,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем правила запросов
                 // по которым будет определятся доступ к ресурсам и остальным данным
                 //Удаления разрешены только пользователям с ролью ADMIN
-                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/**").hasAuthority("ADMIN")
                 //получение информации о пользователях разрешено только авторизованным пользователям
                 //для всех операций /user/?что-то там? (пример /user/1)
                 .antMatchers("/user/*").authenticated()
